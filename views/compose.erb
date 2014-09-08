@@ -1,0 +1,5 @@
+<h2>Post</h2>
+<form name="post_form" method="post">
+  <%= if not request[:r].nil? then "<input type=\"hidden\" name=\"r\" value=\"#{request[:r]}\">" end %>
+  <textarea rows="24" cols="80">content goes here</textarea>
+</form>
