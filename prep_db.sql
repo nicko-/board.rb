@@ -9,6 +9,6 @@ CREATE TABLE `posts` (
 CREATE TABLE `auth` (
 	`client_secret`	TEXT NOT NULL,
 	`server_secret`	TEXT NOT NULL,
-	`hash`	TEXT
+	`hash`	TEXT NOT NULL
 );
 COMMIT;
