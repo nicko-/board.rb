@@ -1,10 +1,10 @@
 <center>
   <h2>Post</h2>
   <form name="post_form" method="post">
-    <%= if not request[:r].nil? then "<input type=\"hidden\" name=\"r\" value=\"#{request[:r]}\">" end %>
-    <b>Tags: </b><input name="t" size="80">
+    <%= if not request[:reply].nil? then "<input type=\"hidden\" name=\"reply\" value=\"#{request[:reply]}\">" end %>
+    <b>Tags: </b><input name="tags" size="80">
     <br>
-    <textarea name="c" rows="24" cols="80">content goes here</textarea>
+    <textarea name="content" rows="24" cols="80">content goes here</textarea>
     <br>
     <input type="submit" value="Post">
   </form>
