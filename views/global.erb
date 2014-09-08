@@ -7,6 +7,9 @@
     <center>
       <h1><%= $config[:board_name] %></h1>
       <p>Hello <%= @user %> - <a href="/me/">[me]</a></p>
+      <hr>
+
+      <%= yield %>
     </center>
   </body>
 </html>
