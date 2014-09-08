@@ -2,5 +2,5 @@ require 'sinatra'
 require 'sequel'
 
 get '/' do
-  'Hello World!'
+  erb :index
 end
