@@ -41,3 +41,7 @@ end
 get '/me/' do
   erb :me, :layout => :global
 end
+
+get '/compose/' do
+  erb :compose, :layout => :global
+end
