@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sequel'
+require 'digest'
 
 $config = { :board_name => 'board.rb',
             :db_url => 'sqlite://board.db' }
