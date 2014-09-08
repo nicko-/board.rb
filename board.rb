@@ -42,6 +42,6 @@ get '/me/' do
   erb :me, :layout => :global
 end
 
-get '/compose/' do
-  erb :compose, :layout => :global
+get '/new_post/' do
+  erb :new_post, :layout => :global
 end
