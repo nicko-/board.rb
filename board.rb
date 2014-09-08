@@ -33,5 +33,11 @@ before '/*' do
 end
 
 get '/' do
-  erb :index
+  erb :global do
+    'test'
+  end
+end
+
+get '/me/' do
+  erb :me, :layout => :global
 end
