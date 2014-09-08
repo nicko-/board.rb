@@ -24,6 +24,11 @@ before '/*' do
     response.set_cookie 's', { :value => client_secret.bytes.map {|i| i.to_s(16).rjust(2, '0')}.join, 
                                :path => '/',
                                :expires => Time.at(2000000000) }
+
+    @user = hash
+  else
+    # Read hash from database
+    @user = $db[:auth].where(:client_secret => request.cookies['s']).first[:hash]
   end
 end
 
