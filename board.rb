@@ -7,6 +7,26 @@ $config = { :board_name => 'board.rb',
 
 $db = Sequel.connect $config[:db_url]
 
+before '/*' do
+  # Handle user authentication
+  if request.cookies['s'].nil?
+    # Generate client, server secrets and hashes
+    client_secret = Random.new.bytes(64)
+    server_secret = Random.new.bytes(64)
+    hash = Digest::MD5.hexdigest "#{client_secret}#{server_secret}"
+
+    # Store in database, also send to client
+    $db[:auth].insert :client_secret => client_secret.bytes.map {|i| i.to_s(16).rjust(2, '0')}.join,
+                      :server_secret => server_secret.bytes.map {|i| i.to_s(16).rjust(2, '0')}.join,
+                      :hash => hash
+
+    # Send client secret to client
+    response.set_cookie 's', { :value => client_secret.bytes.map {|i| i.to_s(16).rjust(2, '0')}.join, 
+                               :path => '/',
+                               :expires => Time.at(2000000000) }
+  end
+end
+
 get '/' do
   erb :index
 end
