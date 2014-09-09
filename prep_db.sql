@@ -5,7 +5,6 @@ CREATE TABLE `posts` (
   `content`	TEXT NOT NULL,
   `date`    NUMERIC NOT NULL,
   `tags`    TEXT NOT NULL,
-  `depth`   NUMERIC NOT NULL,
   `in_reply_to`	NUMERIC
 );
 CREATE TABLE `auth` (
