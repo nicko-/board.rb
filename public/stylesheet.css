@@ -29,9 +29,9 @@
   line-height: 42px;
 }
 
-a,
-a:link, 
-a:visited {
+#navbar a,
+#navbar a:link,
+#navbar a:visited {
   color: #fff;
 }
 
