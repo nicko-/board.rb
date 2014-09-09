@@ -52,3 +52,7 @@ post '/new_post/' do
 
   redirect to('/') # TODO, redirect to new thread once done
 end
+
+get '/t/:id/' do
+  erb :thread, :layout => :global
+end
