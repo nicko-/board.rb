@@ -48,7 +48,7 @@ end
 
 post '/new_post/' do
   $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i,
-                     :tags => (params[:tags] or ''), :in_reply_to => params[:reply]
+                     :tags => (params[:tags] or ''), :in_reply_to => params[:reply], :depth => 0
 
   redirect to('/') # TODO, redirect to new thread once done
 end
