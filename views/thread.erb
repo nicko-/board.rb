@@ -1,9 +1,9 @@
 <%
-def render_post id
+def render_post id, depth = 0
   post = $db[:posts].where(:id => id).first
-  content = "<div style=\"left: #{post[:depth] * 10}px;\" id=\"post\"><b>#{post[:author]}</b> - #{Time.at(post[:date]).to_s}<br>#{post[:content]}<br>"
+  content = "<div style=\"left: #{depth * 10}px;\" id=\"post\"><b>#{post[:author]}</b> - #{Time.at(post[:date]).to_s}<br>#{post[:content]}<br>"
   $db[:posts].where(:in_reply_to => id).each do |reply|
-    content += render_post reply
+    content += render_post reply, depth + 1
   end
   content
 end
