@@ -1,0 +1,46 @@
+#navbar {
+  left: 0px;
+  top: 0px;
+ 
+  width: 100%;
+  height: 42px;
+
+  color: #ffffff;
+  background-color: #CC342D;
+  text-decoration: none; 
+}
+
+#navbarBlock {
+  padding-left: 16px;
+  padding-right: 16px;
+  height: 100%;
+
+  float: left;
+  line-height: 42px;
+  font-family: sans-serif;
+}
+
+#navbarButton {
+  padding-left: 16px;
+  padding-right: 16px;
+  height: 100%;
+
+  float: left;
+  line-height: 42px;
+  font-family: sans-serif;
+}
+
+a,
+a:link, 
+a:visited {
+  color: #fff;
+}
+
+#navbarButton:hover {
+  background-color: #CC5954
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
