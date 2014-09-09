@@ -17,7 +17,6 @@
 
   float: left;
   line-height: 42px;
-  font-family: sans-serif;
   font-weight: bold;
 }
 
@@ -28,7 +27,6 @@
 
   float: left;
   line-height: 42px;
-  font-family: sans-serif;
 }
 
 a,
@@ -44,4 +42,5 @@ a:visited {
 body {
   padding: 0px;
   margin: 0px;
+  font-family: sans-serif;
 }
