@@ -49,6 +49,12 @@
   background-color: #ffaba9;
 }
 
+#postUserhash {
+  float: right;
+  font-size: 8pt;
+  color: #888;
+}
+
 body {
   padding: 0px;
   margin: 0px;
