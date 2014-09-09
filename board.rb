@@ -45,3 +45,10 @@ end
 get '/new_post/' do
   erb :new_post, :layout => :global
 end
+
+post '/new_post/' do
+  $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i,
+                     :tags => (params[:tags] or ''), :in_reply_to => params[:reply]
+
+  redirect to('/') # TODO, redirect to new post once done
+end
