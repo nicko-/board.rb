@@ -10,6 +10,8 @@
       <a href="<%= path %>"><div id="navbarButton"><%= '<b>' if request.path == path %><%= title %><%= '</b>' if request.path == path %></div></a>
       <% end %>
     </div>
-    <%= yield %>
+    <div id="content">
+      <%= yield %>
+    </div>
   </body>
 </html>

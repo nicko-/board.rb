@@ -39,6 +39,10 @@ a:visited {
   background-color: #CC5954
 }
 
+#content {
+  padding: 10px;
+}
+
 body {
   padding: 0px;
   margin: 0px;
