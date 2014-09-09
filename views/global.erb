@@ -2,13 +2,14 @@
 <html>
   <head>
     <title><%= $config[:board_name] %></title>
+    <link rel="stylesheet" href="/stylesheet.css">
   </head>
   <body>
-    <center>
-      <h1><%= $config[:board_name] %></h1>
-      <p>Hello <%= @user %> - <a href="/">[home]</a> <a href="/me/">[me]</a> <a href="/new_post/">[new post]</a></p>
-      <hr>
-    </center>
+    <div id="navbar">
+      <a href="/"><div id="navbarButton"><b><%= $config[:board_name] %></b></div></a>
+      <a href="/new_post/"><div id="navbarButton">New Post</div></a>
+      <a href="/me/"><div id="navbarButton">Me</div></a>
+    </div>
     <%= yield %>
   </body>
 </html>
