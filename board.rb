@@ -18,9 +18,9 @@ helpers do
     while true do
       raise 'Circular reference in post' if traversed.include? post_id
       traversed.push post_id
-      next_post_id = $db[:posts].where(:id => post_id).first[:in_reply_to]
-      return post_id if next_post_id.nil?
-      post_id = next_post_id
+      this_post = $db[:posts].where(:id => post_id).first
+      return post_id if this_post.nil? or this_post[:in_reply_to].nil?
+      post_id = this_post[:in_reply_to]
     end
   end
 end
@@ -91,7 +91,7 @@ end
 
 post '/new_post/' do
   $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i,
-                     :tags => (params[:tags] or ''), :in_reply_to => params[:reply].to_i
+                     :tags => (params[:tags] or ''), :in_reply_to => params[:reply].nil? ? nil : params[:reply].to_i
 
   # Redirect to (new) thread
   if params[:reply].nil? # This a new thread, find the post ID of thread OP and go to it
