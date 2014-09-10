@@ -11,6 +11,18 @@ helpers do
   def h text
     Rack::Utils.escape_html text
   end
+
+  # Find the original poster of a thread witb a post id
+  def find_op post_id
+    traversed = []
+    while true do
+      raise 'Circular reference in post' if traversed.include? post_id
+      traversed.push post_id
+      next_post_id = $db[:posts].where(:id => post_id).first[:in_reply_to]
+      return post_id if next_post_id.nil?
+      post_id = next_post_id
+    end
+  end
 end
 
 before '/*' do
@@ -81,10 +93,12 @@ post '/new_post/' do
   $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i,
                      :tags => (params[:tags] or ''), :in_reply_to => params[:reply]
 
-  # Get post id so we can jump to it
-  id = $db[:posts].where(:author => @user).to_a[-1][:id]
-
-  redirect to("/t/#{id}/")
+  # Redirect to (new) thread
+  if params[:reply].nil? # This a new thread, find the post ID of thread OP and go to it
+    redirect to("/t/#{$db[:posts].where(:author => @user).to_a[-1][:id]}/")
+  else # This is a reply to a thread, go to OP in thread
+    redirect to("/t/#{find_op params[:reply]}/")
+  end
 end
 
 get '/t/:id/' do
