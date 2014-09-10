@@ -49,6 +49,11 @@
   background-color: #ffaba9;
 }
 
+.postContent {
+  font-family: monospace, courier;
+  font-size: 10pt;
+}
+
 .postUserhash {
   float: right;
   font-size: 8pt;
