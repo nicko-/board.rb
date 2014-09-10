@@ -1,1 +1,6 @@
-<%= erb :post, :locals => { :id => params[:id], :depth => 0 } %>
+<% def render_post id, depth = 0
+  erb(:post, :locals => { :id => id, :depth => depth }) +
+  $db[:posts].where(:in_reply_to => id).map {|reply| render_post reply[:id], depth + 1}.join
+end %>
+
+<%= render_post params[:id] %>
