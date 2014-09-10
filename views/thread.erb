@@ -3,4 +3,4 @@
   $db[:posts].where(:in_reply_to => id).map {|reply| render_post reply[:id], depth + 1}.join
 end %>
 
-<%= render_post params[:id] %>
+<%= render_post params[:id].to_i %>

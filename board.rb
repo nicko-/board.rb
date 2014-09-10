@@ -91,13 +91,13 @@ end
 
 post '/new_post/' do
   $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i,
-                     :tags => (params[:tags] or ''), :in_reply_to => params[:reply]
+                     :tags => (params[:tags] or ''), :in_reply_to => params[:reply].to_i
 
   # Redirect to (new) thread
   if params[:reply].nil? # This a new thread, find the post ID of thread OP and go to it
     redirect to("/t/#{$db[:posts].where(:author => @user).to_a[-1][:id]}/")
   else # This is a reply to a thread, go to OP in thread
-    redirect to("/t/#{find_op params[:reply]}/")
+    redirect to("/t/#{find_op params[:reply].to_i}/")
   end
 end
 
