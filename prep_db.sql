@@ -8,7 +8,6 @@ CREATE TABLE `posts` (
   `in_reply_to`	NUMERIC
 );
 CREATE TABLE `auth` (
-  `client_secret`	TEXT NOT NULL,
   `server_secret`	TEXT NOT NULL,
   `hash`	TEXT NOT NULL
 );
