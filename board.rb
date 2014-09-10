@@ -55,8 +55,8 @@ get '/' do
   end
 end
 
-get '/me/' do
-  erb :me, :layout => :global
+get '/config/' do
+  erb :config, :layout => :global
 end
 
 get '/new_post/' do

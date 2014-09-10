@@ -6,7 +6,7 @@
   </head>
   <body>
     <div class="navbar">
-      <% { $config[:board_name] => '/', 'New Post' => '/new_post/', 'Me' => '/me/' }.each do |title, path| %>
+      <% { $config[:board_name] => '/', 'New Post' => '/new_post/', 'Config' => '/config/' }.each do |title, path| %>
       <a href="<%= path %>"><div class="navbarButton"><%= '<b>' if request.path == path %><%= title %><%= '</b>' if request.path == path %></div></a>
       <% end %>
     </div>
