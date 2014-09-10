@@ -1,6 +1,6 @@
 <% post = $db[:posts].where(:id => id).first %>
 <div style="margin-left: <%= depth * 10 %>px;" class="post">
   <div class="postUserhash"><%= post[:author] %></div>
-  <b><%= post[:author] %></b> - <%= Time.at(post[:date]).to_s %><br>
-  <%= post[:content] %><br>
+  <b><%= h post[:author] %></b> - <%= Time.at(post[:date]).to_s %><br>
+  <%= h(post[:content]).gsub("\n", "<br>") %><br>
 </div>

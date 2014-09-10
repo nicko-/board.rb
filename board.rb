@@ -7,6 +7,12 @@ $config = { :board_name => 'board.rb',
 
 $db = Sequel.connect $config[:db_url]
 
+helpers do
+  def h text
+    Rack::Utils.escape_html text
+  end
+end
+
 before '/*' do
   # Handle user authentication
   if request.cookies['s'].nil?
