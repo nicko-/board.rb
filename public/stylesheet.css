@@ -1,4 +1,4 @@
-#navbar {
+.navbar {
   left: 0px;
   top: 0px;
  
@@ -10,7 +10,7 @@
   text-decoration: none; 
 }
 
-#navbarBlock {
+.navbarBlock {
   padding-left: 16px;
   padding-right: 16px;
   height: 100%;
@@ -20,7 +20,7 @@
   font-weight: bold;
 }
 
-#navbarButton {
+.navbarButton {
   padding-left: 16px;
   padding-right: 16px;
   height: 100%;
@@ -29,27 +29,27 @@
   line-height: 42px;
 }
 
-#navbar a,
-#navbar a:link,
-#navbar a:visited {
+.navbar a,
+.navbar a:link,
+.navbar a:visited {
   color: #fff;
 }
 
-#navbarButton:hover {
+.navbarButton:hover {
   background-color: #CC5954;
 }
 
-#content {
+.content {
   padding: 10px;
 }
 
-#post {
+.post {
   padding: 10px;
   margin-bottom: 5px;
   background-color: #ffaba9;
 }
 
-#postUserhash {
+.postUserhash {
   float: right;
   font-size: 8pt;
   color: #888;
