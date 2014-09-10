@@ -81,7 +81,10 @@ post '/new_post/' do
   $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i,
                      :tags => (params[:tags] or ''), :in_reply_to => params[:reply]
 
-  redirect to('/') # TODO, redirect to new thread once done
+  # Get post id so we can jump to it
+  id = $db[:posts].where(:author => @user).to_a[-1][:id]
+
+  redirect to("/t/#{id}/")
 end
 
 get '/t/:id/' do
