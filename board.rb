@@ -33,7 +33,11 @@ before '/*' do
     # Send userhash to client
     response.set_cookie 'h', { :value => hash, :path => '/', :expires => Time.at(2147483640) }
 
+    # Set alias to 'Anonymous'
+    $db[:aliases].insert :user => hash, :alias => 'Anonymous'
+
     @user = hash
+    @alias = 'Anonymous'
   else
     # Attempt to authenticate user
     row = $db[:auth].where(:hash => request.cookies['h']).first
@@ -44,8 +48,9 @@ before '/*' do
     halt erb(:error, :layout => :global, :locals => {:title => 'Failed to confirm identity.', :message => 'Provided hash does not match server generated.'}) \
       if Digest::MD5.hexdigest("#{[request.cookies['s']].pack('H*')}#{[row[:server_secret]].pack('H*')}") != request.cookies['h']
 
-    # Set @user
+    # Set @user, @alias
     @user = request.cookies['h']
+    @alias = $db[:aliases].where(:user => @user).first[:alias]
   end
 end
 
@@ -55,8 +60,17 @@ get '/' do
   end
 end
 
-get '/config/' do
-  erb :config, :layout => :global
+get '/prefs/' do
+  erb :prefs, :layout => :global
+end
+
+post '/prefs/' do
+  case params[:action]
+  when 'change_alias'
+    $db[:aliases].where(:user => @user).update(:alias => params[:new_alias])
+  end
+
+  redirect to('/prefs/')
 end
 
 get '/new_post/' do

@@ -1,6 +1,8 @@
-<% post = $db[:posts].where(:id => id).first %>
+<% post = $db[:posts].where(:id => id).first
+   user_alias = $db[:aliases].where(:user => post[:author]).first[:alias] %>
+
 <div style="margin-left: <%= depth * 10 %>px;" class="post">
   <div class="postUserhash"><%= post[:author] %></div>
-  <b><%= h post[:author] %></b> - <%= Time.at(post[:date]).to_s %><br>
+  <b><%= h user_alias %></b> - <%= Time.at(post[:date]).to_s %><br>
   <%= h(post[:content]).gsub("\n", "<br>") %><br>
 </div>

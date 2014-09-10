@@ -11,4 +11,8 @@ CREATE TABLE `auth` (
   `server_secret`	TEXT NOT NULL,
   `hash`	TEXT NOT NULL
 );
+CREATE TABLE `aliases` (
+  `user` TEXT NOT NULL,
+  `alias` TEXT NOT NULL
+);
 COMMIT;
