@@ -1,0 +1,10 @@
+<% post = $db[:posts].where(:id => id).first %>
+<div style="margin-left: <%= depth * 10 %>px;" class="post">
+  <div class="postUserhash"><%= post[:author] %></div>
+  <b><%= post[:author] %></b> - <%= Time.at(post[:date]).to_s %><br>
+  <%= post[:content] %><br>
+</div>
+
+<% $db[:posts].where(:in_reply_to => id).each do |reply| # Render replies %>
+<%= erb :post, :locals => { :id => reply[:id], :depth => depth + 1 } %>
+<% end %>
