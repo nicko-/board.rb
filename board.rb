@@ -41,7 +41,7 @@ before '/*' do
     halt erb(:error, :layout => :global, :locals => {:title => 'Failed to confirm identity.', :message => 'No such user with that hash.'}) \
       if row.nil?
 
-    halt erb(:error, :layout => :global, :locals => {:title => 'Failed to confirm identity.', :message => 'Provided hash does not match server generated.') \
+    halt erb(:error, :layout => :global, :locals => {:title => 'Failed to confirm identity.', :message => 'Provided hash does not match server generated.'}) \
       if Digest::MD5.hexdigest("#{[request.cookies['s']].pack('H*')}#{[row[:server_secret]].pack('H*')}") != request.cookies['h']
 
     # Set @user
