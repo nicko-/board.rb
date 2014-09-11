@@ -66,6 +66,17 @@
   color: #CC342D;
 }
 
+.postFront {
+  padding: 10px;
+  background-color: #ffaba9;
+  font-size: 11pt;
+  text-decoration: none;
+}
+
+.postFront:hover {
+  background-color: #ff7f7c;
+}
+
 body {
   padding: 0px;
   margin: 0px;
