@@ -67,9 +67,7 @@ before '/*' do
 end
 
 get '/' do
-  erb :global do
-    'test'
-  end
+  erb :front, :layout => :global
 end
 
 get '/prefs/' do
@@ -90,14 +88,16 @@ get '/new_post/' do
 end
 
 post '/new_post/' do
-  $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i,
+  $db[:posts].insert :author => @user, :content => params[:content], :date => Time.now.to_i, :last_update => Time.now.to_i,
                      :tags => (params[:tags] or ''), :in_reply_to => params[:reply].nil? ? nil : params[:reply].to_i
 
   # Redirect to (new) thread
   if params[:reply].nil? # This a new thread, find the post ID of thread OP and go to it
     redirect to("/t/#{$db[:posts].where(:author => @user).to_a[-1][:id]}/")
   else # This is a reply to a thread, go to OP in thread
-    redirect to("/t/#{find_op params[:reply].to_i}/")
+    op = find_op params[:reply].to_i
+    $db[:posts].where(:id => op).update(:last_update => Time.now.to_i) # Bump OP
+    redirect to("/t/#{op}/")
   end
 end
 

@@ -4,6 +4,7 @@ CREATE TABLE `posts` (
   `author`	TEXT NOT NULL,
   `content`	TEXT NOT NULL,
   `date`    NUMERIC NOT NULL,
+  `last_update` NUMERIC NOT NULL,
   `tags`    TEXT NOT NULL,
   `in_reply_to`	NUMERIC
 );
