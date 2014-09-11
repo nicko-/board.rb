@@ -20,7 +20,7 @@ helpers do
       traversed.push post_id
       this_post = $db[:posts].where(:id => post_id).first
       return post_id if this_post.nil? or this_post[:in_reply_to].nil?
-      post_id = this_post[:in_reply_to]
+      post_id = this_post[:in_reply_to].to_i
     end
   end
 end
