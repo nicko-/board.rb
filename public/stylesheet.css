@@ -70,3 +70,8 @@ body {
   margin: 0px;
   font-family: sans-serif;
 }
+
+textarea {
+  font-family: monospace, courier;
+  font-size: 10pt;
+}
