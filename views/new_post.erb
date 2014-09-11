@@ -1,7 +1,7 @@
 <center>
   <h2>Post</h2>
   <form name="post_form" method="post">
-    <%= if not request[:reply].nil? then "<input type=\"hidden\" name=\"reply\" value=\"#{request[:reply]}\"><b>In reply to:</b> #{request[:reply]}<br>" end %>
+    <% if not request[:reply].nil? %><input type="hidden" name="reply" value="<%= request[:reply] %>"><b>In reply to:</b> <%= request[:reply] %><br><% end %>
     <% if request[:reply].nil? %><b>Tags: </b><input name="tags" size="80"><br><% end %>
     <textarea name="content" rows="24" cols="80">content goes here</textarea>
     <br>
