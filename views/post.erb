@@ -5,5 +5,5 @@
   <div class="postUserhash"><%= post[:author] %></div>
   <b><%= h user_alias %></b> - <%= Time.at(post[:date]).to_s %><br>
   <div class="postContent"><%= h(post[:content]).gsub("\n", "<br>") %></div><br>
-  <a href="/new_post/?reply=<%= id %>">[reply]</a>
+  <div class="postButtons"><a href="/new_post/?reply=<%= id %>">[reply]</a></div>
 </div>
