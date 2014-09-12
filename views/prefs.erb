@@ -3,3 +3,13 @@
 <h3>Alias</h3>
 <b>Current alias: </b><%= h @alias %><br>
 <form name="alias_change_form" method="post" action="/prefs/"><input type="hidden" name="action" value="change_alias"><b>Change alias: </b><input type="text" name="new_alias"><input type="submit" value="Change"></form>
+<h3>Front Page</h3>
+<form name="frontpage_content_form" method="post" action="/prefs/"><input type="hidden" name="action" value="change_frontpage_content">
+  <b>Display posts from: </b>
+  <select name="new_frontpage_content">
+    <% frontpage_content = $db[:userconfig].where(:user => @user, :key => 'frontpage_content').first[:value] %>
+    <option value="all" <%= 'selected' if frontpage_content == 'all' %>>Across the board</option>
+    <option value="subs" <%= 'selected' if frontpage_content == 'subs' %>>My subscriptions</option>
+  </select>
+  <input type="submit" value="Change">
+</form>

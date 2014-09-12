@@ -5,7 +5,8 @@ require 'digest'
 $config = { :board_name => 'board.rb',
             :db_url => 'sqlite://board.db',
             :default_userconfig => {
-              'alias' => 'Unaliased'
+              'alias' => 'Unaliased',
+              'frontpage_content' => 'all'
             } }
 
 $db = Sequel.connect $config[:db_url]
@@ -83,6 +84,10 @@ post '/prefs/' do
   case params[:action]
   when 'change_alias'
     $db[:userconfig].where(:user => @user, :key => 'alias').update(:value => params[:new_alias])
+  when 'change_frontpage_content'
+    if ['all', 'subs'].include? params[:new_frontpage_content] then
+      $db[:userconfig].where(:user => @user, :key => 'frontpage_content').update(:value => params[:new_frontpage_content])
+    end
   end
 
   redirect to('/prefs/')
