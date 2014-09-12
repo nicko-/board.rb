@@ -98,14 +98,14 @@ post '/new_post/' do
 
   # Redirect to (new) thread
   if params[:reply].nil? # This a new thread, find the post ID of thread OP and go to it
-    redirect to("/t/#{$db[:posts].where(:author => @user).to_a[-1][:id]}/")
+    redirect to("/th/#{$db[:posts].where(:author => @user).to_a[-1][:id]}/")
   else # This is a reply to a thread, go to OP in thread
     op = find_op params[:reply].to_i
     $db[:posts].where(:id => op).update(:last_update => Time.now.to_i) # Bump OP
-    redirect to("/t/#{op}/")
+    redirect to("/th/#{op}/")
   end
 end
 
-get '/t/:id/' do
+get '/th/:id/' do
   erb :thread, :layout => :global
 end
