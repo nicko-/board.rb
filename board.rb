@@ -106,6 +106,10 @@ post '/new_post/' do
   end
 end
 
+get '/subs/' do
+  erb :edit_subs, :layout => :global
+end
+
 get '/th/:id/' do
   erb :thread, :layout => :global
 end
