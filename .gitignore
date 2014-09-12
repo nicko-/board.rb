@@ -35,3 +35,6 @@ build/
 
 # databases
 *.db
+
+# MacOS
+.DS_Store
