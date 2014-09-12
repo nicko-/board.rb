@@ -12,7 +12,7 @@ helpers do
     Rack::Utils.escape_html text
   end
 
-  # Find the original poster of a thread witb a post id
+  # Find the original poster of a thread with a post id
   def find_op post_id
     traversed = []
     while true do
