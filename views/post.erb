@@ -1,5 +1,5 @@
 <% post = $db[:posts].where(:id => id).first
-   user_alias = $db[:aliases].where(:user => post[:author]).first[:alias] %>
+   user_alias = $db[:userconfig].where(:user => post[:author], :key => 'alias').first[:value] %>
 
 <div style="margin-left: <%= depth * 10 %>px;" class="post">
   <div class="postUserhash"><%= post[:author] %></div>

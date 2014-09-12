@@ -3,7 +3,10 @@ require 'sequel'
 require 'digest'
 
 $config = { :board_name => 'board.rb',
-            :db_url => 'sqlite://board.db' }
+            :db_url => 'sqlite://board.db',
+            :default_userconfig => {
+              'alias' => 'Unaliased'
+            } }
 
 $db = Sequel.connect $config[:db_url]
 
@@ -38,18 +41,20 @@ before '/*' do
                       :hash => hash
 
     # Send client secret to client
-    response.set_cookie 's', { :value => client_secret.bytes.map {|i| i.to_s(16).rjust(2, '0')}.join, 
+    response.set_cookie 's', { :value => client_secret.bytes.map {|i| i.to_s(16).rjust(2, '0')}.join,
                                :path => '/',
                                :expires => Time.at(2147483640) }
 
     # Send userhash to client
     response.set_cookie 'h', { :value => hash, :path => '/', :expires => Time.at(2147483640) }
 
-    # Set alias to 'Anonymous'
-    $db[:aliases].insert :user => hash, :alias => 'Anonymous'
+    # Set user's default config
+    $config[:default_userconfig].each do |key, value|
+      $db[:userconfig].insert :user => hash, :key => key, :value => value
+    end
 
     @user = hash
-    @alias = 'Anonymous'
+    @alias = $config[:default_userconfig]['alias']
   else
     # Attempt to authenticate user
     row = $db[:auth].where(:hash => request.cookies['h']).first
@@ -62,7 +67,7 @@ before '/*' do
 
     # Set @user, @alias
     @user = request.cookies['h']
-    @alias = $db[:aliases].where(:user => @user).first[:alias]
+    @alias = $db[:userconfig].where(:user => @user, :key => 'alias').first[:value]
   end
 end
 
@@ -77,7 +82,7 @@ end
 post '/prefs/' do
   case params[:action]
   when 'change_alias'
-    $db[:aliases].where(:user => @user).update(:alias => params[:new_alias])
+    $db[:userconfig].where(:user => @user, :key => 'alias').update(:value => params[:new_alias])
   end
 
   redirect to('/prefs/')
