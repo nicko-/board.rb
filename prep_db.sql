@@ -12,8 +12,9 @@ CREATE TABLE `auth` (
   `server_secret`	TEXT NOT NULL,
   `hash`	TEXT NOT NULL
 );
-CREATE TABLE `aliases` (
+CREATE TABLE `userconfig` (
   `user` TEXT NOT NULL,
-  `alias` TEXT NOT NULL
+  `key` TEXT NOT NULL,
+  `value` TEXT NOT NULL
 );
 COMMIT;

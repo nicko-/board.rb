@@ -11,7 +11,9 @@ CREATE TABLE `boardrb`.`auth` (
   `hash` VARCHAR(32) NOT NULL,
   `server_secret` TEXT NOT NULL,
   PRIMARY KEY (`hash`));
-CREATE TABLE `boardrb`.`aliases` (
+CREATE TABLE `boardrb`.`userconfig` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(32) NOT NULL,
-  `alias` TEXT NOT NULL,
-  PRIMARY KEY (`user`));
+  `key` TEXT NOT NULL,
+  `value` TEXT NOT NULL,
+  PRIMARY KEY (`id`));
