@@ -1,14 +1,7 @@
 <br>
 <center><div style="font-size: 24pt;">Listing <b>the top 50 posts</b> from <b>across the board</b> ordered by <b>last updated</b></div></center>
 <br>
-<% $db[:posts].where(:in_reply_to => nil).reverse_order(:last_update).limit(50).each do |post|
-   user_alias = user_alias = $db[:userconfig].where(:user => post[:author], :key => 'alias').first[:value] %>
-<a style="color: #000; text-decoration: none;" href="/th/<%= post[:id] %>/">
-  <div class="postFront">
-    <div class="postUserhash"><%= post[:author] %></div>
-    <b><%= h user_alias %></b> - <%= Time.at(post[:date]).to_s %><br>
-    <div class="postContent"><%= h(post[:content][0 .. 139]).gsub("\n", "<br>") %><%= '...' if post[:content].length > 140 %></div>
-  </div>
-</a>
+<% $db[:posts].where(:in_reply_to => nil).reverse_order(:last_update).limit(50).each do |post| %>
+<%= erb :post_overview, :locals => { :post => post } %>
 <br>
 <% end %>
