@@ -118,6 +118,20 @@ get '/subs/' do
   erb :edit_subs, :layout => :global
 end
 
+post '/subs/' do
+  case params[:action]
+  when 'add'
+    redirect to('/subs/') if params[:sub].gsub(/[^0-9a-z]/i, '').length < 1
+    new_subs = $db[:userconfig].where(:user => @user, :key => 'subs').first[:value] + "#{params[:sub].gsub(/[^0-9a-z]/i, '')} "
+    $db[:userconfig].where(:user => @user, :key => 'subs').update(:value => new_subs)
+  when 'remove'
+    new_subs = $db[:userconfig].where(:user => @user, :key => 'subs').first[:value].split(' ')
+    new_subs.delete params[:sub]
+    $db[:userconfig].where(:user => @user, :key => 'subs').update(:value => new_subs.join(' ') + (' ' if new_subs.length > 0).to_s)
+  end
+  redirect to('/subs/')
+end
+
 get '/th/:id/' do
   erb :thread, :layout => :global
 end
