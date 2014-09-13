@@ -5,7 +5,8 @@ require 'digest'
 $config = { :board_name => 'board.rb',
             :db_url => 'sqlite://board.db',
             :default_userconfig => {
-              'alias' => 'Unaliased'
+              'alias' => 'Unaliased',
+              'subs' => ''
             } }
 
 $db = Sequel.connect $config[:db_url]
