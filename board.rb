@@ -102,7 +102,8 @@ end
 
 post '/new_post/' do
   $db[:posts].insert :author => @user, :content => params[:content].gsub(/(\r\n){3,}/, "\n").gsub(/\n{3,}/, "\n"), :date => Time.now.to_i,
-                     :last_update => Time.now.to_i, :tags => (params[:tags] or ''), :in_reply_to => params[:reply].nil? ? nil : params[:reply].to_i
+                     :last_update => Time.now.to_i, :tags => (params[:tags] or '').split(' ').map {|t| t.gsub(/[^0-9a-z]/i, '')}.join(' ')
+                     .downcase.squeeze + (' ' if params[:tag]).to_s, :in_reply_to => params[:reply].nil? ? nil : params[:reply].to_i
 
   # Redirect to (new) thread
   if params[:reply].nil? # This a new thread, find the post ID of thread OP and go to it
