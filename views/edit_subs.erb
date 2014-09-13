@@ -1,6 +1,16 @@
 <h2>Edit Subscriptions</h2>
 <div class="subEditor">
   <table>
+    <% $db[:userconfig].where(:user => @user, :key => 'subs').first[:value].split(' ').each do |sub|%>
+    <tr>
+      <form name="sub_editor" method="post" action="/subs/">
+        <input type="hidden" name="action" value="remove">
+        <input type="hidden" name="sub" value="<%= sub %>">
+        <td style="width:100%;"><%= sub %></td>
+        <td><input type="submit" value="remove"></td>
+      </form>
+    </tr>
+    <% end %>
     <tr>
       <form name="sub_editor" method="post" action="/subs/">
         <input type="hidden" name="action" value="add">
