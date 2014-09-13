@@ -69,6 +69,13 @@ before '/*' do
     # Set @user, @alias
     @user = request.cookies['h']
     @alias = $db[:userconfig].where(:user => @user, :key => 'alias').first[:value]
+
+    # Update userconfig fields
+    $config[:default_userconfig].each do |key, value|
+      if $db[:userconfig].where(:user => @user, :key => key).first.nil? # Install missing key
+        $db[:userconfig].insert :user => @user, :key => key, :value => value
+      end
+    end
   end
 end
 
