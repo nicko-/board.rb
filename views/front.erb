@@ -7,7 +7,7 @@
   <div class="postFront">
     <div class="postUserhash"><%= post[:author] %></div>
     <b><%= h user_alias %></b> - <%= Time.at(post[:date]).to_s %><br>
-    <div class="postContent"><%= h(post[:content][0 .. 499]).gsub("\n", "<br>") %><%= '...' if post[:content].length > 500 %></div>
+    <div class="postContent"><%= h(post[:content][0 .. 249]).gsub("\n", "<br>") %><%= '...' if post[:content].length > 250 %></div>
   </div>
 </a>
 <br>
