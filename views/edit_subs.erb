@@ -1,10 +1,12 @@
 <h2>Edit Subscriptions</h2>
-<table style="width: 100%;">
-  <tr>
-    <form name="sub_editor" method="post" action="/subs/">
-      <input type="hidden" name="action" value="add">
-      <td style="padding: 2px;"><input type="text" name="sub" style="width: 100%;"></td>
-      <td style="padding: 2px;"><input type="submit" value="add"></td>
-    </form>
-  </tr>
-</table>
+<div class="subEditor">
+  <table>
+    <tr>
+      <form name="sub_editor" method="post" action="/subs/">
+        <input type="hidden" name="action" value="add">
+        <td style="width:100%;"><input type="text" name="sub" style="width:100%;"></td>
+        <td><input type="submit" value="add"></td>
+      </form>
+    </tr>
+  </table>
+</div>

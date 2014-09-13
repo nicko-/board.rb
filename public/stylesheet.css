@@ -77,6 +77,14 @@
   background-color: #ff7f7c;
 }
 
+.subEditor table {
+  width: 100%;
+}
+
+.subEditor td {
+  padding: 3px;
+}
+
 body {
   padding: 0px;
   margin: 0px;
