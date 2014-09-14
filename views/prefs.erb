@@ -4,3 +4,5 @@
 <h3>Alias</h3>
 <b>Current alias: </b><%= h @alias %><br>
 <form name="alias_change_form" method="post" action="/prefs/"><input type="hidden" name="csrf_token" value="<%= csrf_token %>"><input type="hidden" name="action" value="change_alias"><b>Change alias: </b><input type="text" name="new_alias"><input type="submit" value="Change"></form>
+<h3>Front page</h3>
+Change the content that appears on your front page by <a href="/subs/">editing your subscriptions</a>.
