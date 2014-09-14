@@ -1,11 +1,34 @@
-<% if listing.empty? %>
+<%
+range = params[:from].to_i .. (params[:from].to_i + 49)
+posts = listing.limit(range).to_a
+if posts.empty? %>
 <center>
   <h1>There doesn't seem to be anything here...</h1>
   We've ran out of posts for this listing. In the meantime, you can <b><a href="/all/">browse everything</a></b>.
 </center>
 <% else %>
-  <% listing.each do |post| %>
+  <% posts.each do |post| %>
 <%= erb :post_overview, :locals => { :post => post } %>
+<br>
+  <% end %>
+  <% if params[:from].to_i > 49 %>
+<a href="<%= "#{request.path_info}?from=#{params[:from].to_i - 50}" %>">
+  <div class="postFront">
+    <center>
+      <b>previous page</b>
+    </center>
+  </div>
+</a>
+<br>
+  <% end %>
+  <% if posts.length == 50 # If listing is full %>
+<a href="<%= "#{request.path_info}?from=#{params[:from].to_i + 50}" %>">
+  <div class="postFront">
+    <center>
+      <b>next page</b>
+    </center>
+  </div>
+</a>
 <br>
   <% end %>
 <% end %>
