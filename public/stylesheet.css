@@ -53,12 +53,21 @@
 .postContent {
   font-family: monospace, courier;
   font-size: 11pt;
+  padding-bottom: 6px;
 }
 
 .postUserhash {
   float: right;
   font-size: 8pt;
   color: #888;
+}
+
+.postHeader {
+  padding-bottom: 6px;
+}
+
+.postTags {
+  font-size: 8pt;
 }
 
 .postFront {
