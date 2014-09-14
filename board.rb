@@ -27,6 +27,16 @@ helpers do
       post_id = this_post[:in_reply_to].to_i
     end
   end
+
+  # Attempt to validate csrf token, error if validation fails, else, update the token.
+  def validate_csrf_token
+    token = $db[:userconfig].where(:user => @user, :key => 'csrf_token').first[:value]
+    $db[:userconfig].where(:user => @user, :key => 'csrf_token').update(:value => Random.new.bytes(32).bytes.map {|i| i.to_s(16).rjust(2, '0')}.join)
+
+    if params[:csrf_token].nil? or params[:csrf_token] != token
+      halt erb(:error, :layout => :global, :locals => {:title => 'CSRF validation failed.', :message => 'Please go back, refresh the page and try again.'})
+    end
+  end
 end
 
 before '/*' do
@@ -54,6 +64,9 @@ before '/*' do
       $db[:userconfig].insert :user => hash, :key => key, :value => value
     end
 
+    # Set CSRF token
+    $db[:userconfig].insert :user => hash, :key => 'csrf_token', :value => Random.new.bytes(32).bytes.map {|i| i.to_s(16).rjust(2, '0')}.join
+
     @user = hash
     @alias = $config[:default_userconfig]['alias']
   else
@@ -76,6 +89,11 @@ before '/*' do
         $db[:userconfig].insert :user => @user, :key => key, :value => value
       end
     end
+
+    # Create CSRF token if it doesn't exist
+    if $db[:userconfig].where(:user => @user, :key => 'csrf_token').first.nil? # Install missing key
+      $db[:userconfig].insert :user => @user, :key => 'csrf_token', :value => Random.new.bytes(32).bytes.map {|i| i.to_s(16).rjust(2, '0')}.join
+    end
   end
 end
 
@@ -92,6 +110,8 @@ get '/prefs/' do
 end
 
 post '/prefs/' do
+  validate_csrf_token
+
   case params[:action]
   when 'change_alias'
     $db[:userconfig].where(:user => @user, :key => 'alias').update(:value => params[:new_alias])
@@ -105,6 +125,8 @@ get '/new_post/' do
 end
 
 post '/new_post/' do
+  validate_csrf_token
+
   tags = (' ' if params[:tags]).to_s + ((params[:tags] or '').split(' ').map {|t| t.gsub(/[^0-9a-z]/i, '')}.join(' ').downcase.squeeze) + (' ' if params[:tags]).to_s
 
   $db[:posts].insert :author => @user, :content => params[:content].gsub(/(\r\n){3,}/, "\n").gsub(/\n{3,}/, "\n"), :date => Time.now.to_i,
@@ -125,6 +147,8 @@ get '/subs/' do
 end
 
 post '/subs/' do
+  validate_csrf_token
+
   case params[:action]
   when 'add'
     redirect to('/subs/') if params[:sub].gsub(/[^0-9a-z]/i, '').length < 1

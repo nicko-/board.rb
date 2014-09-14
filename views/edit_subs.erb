@@ -1,9 +1,11 @@
+<% csrf_token = $db[:userconfig].where(:user => @user, :key => 'csrf_token').first[:value] %>
 <h2>Edit Subscriptions</h2>
 <div class="subEditor">
   <table>
     <% $db[:userconfig].where(:user => @user, :key => 'subs').first[:value].split(' ').each do |sub|%>
     <tr>
       <form name="sub_editor" method="post" action="/subs/">
+        <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
         <input type="hidden" name="action" value="remove">
         <input type="hidden" name="sub" value="<%= sub %>">
         <td style="width:100%;"><%= sub %></td>
@@ -13,6 +15,7 @@
     <% end %>
     <tr>
       <form name="sub_editor" method="post" action="/subs/">
+        <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
         <input type="hidden" name="action" value="add">
         <td style="width:100%;"><input type="text" name="sub" style="width:100%;"></td>
         <td><input type="submit" value="add" style="width:64px"></td>
