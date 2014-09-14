@@ -7,7 +7,7 @@
   <body>
     <div class="navbar">
       <a href="/"><div class="navbarButton"><%= $config[:board_name] %></div></a>
-      <% { 'front' => '/', 'new post' => '/new_post/', 'preferences' => '/prefs/' }.each do |title, path| %>
+      <% { 'front' => '/', 'all' => '/all/', 'new post' => '/new_post/', 'preferences' => '/prefs/' }.each do |title, path| %>
       <a href="<%= path %>"><div class="navbarButton"><%= '<b>' if request.path == path %><%= title %><%= '</b>' if request.path == path %></div></a>
       <% end %>
     </div>

@@ -83,6 +83,10 @@ get '/' do
   erb :front, :layout => :global
 end
 
+get '/all/' do
+  erb :listing, :layout => :global, :locals => {:listing => $db[:posts].where(:in_reply_to => nil).reverse_order(:last_update)}
+end
+
 get '/prefs/' do
   erb :prefs, :layout => :global
 end
