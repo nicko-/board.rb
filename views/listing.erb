@@ -1,4 +1,11 @@
-<% listing.each do |post| %>
+<% if listing.empty? %>
+<center>
+  <h1>There doesn't seem to be anything here...</h1>
+  We've ran out of posts for this listing. In the meantime, you can <b><a href="/all/">browse everything</a></b>.
+</center>
+<% else %>
+  <% listing.each do |post| %>
 <%= erb :post_overview, :locals => { :post => post } %>
 <br>
+  <% end %>
 <% end %>
