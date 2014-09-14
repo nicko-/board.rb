@@ -1,7 +1,11 @@
-<br>
-<center><div style="font-size: 24pt;">Listing <b>the top 50 posts</b> from <b>across the board</b> ordered by <b>last updated</b></div></center>
-<br>
-<% $db[:posts].where(:in_reply_to => nil).reverse_order(:last_update).limit(50).each do |post| %>
-<%= erb :post_overview, :locals => { :post => post } %>
-<br>
+<% subs = $db[:userconfig].where(:user => @user, :key => 'subs').first[:value].split %>
+<% if subs.empty? %>
+<center>
+  <h1>There doesn't seem to be anything here...</h1>
+  <b><a href="/subs/">Subscribe to some tags</a></b> or <b><a href="/all/">browse everything</a></b>.
+</center>
+<% else
+  queries = subs.map{|sub| "% #{sub} %"}
+  posts = $db[:posts].where(:in_reply_to => nil).where(Sequel.like(:tags, *queries)).reverse_order(:last_update) %>
+<%= erb :listing, :locals => {:listing => posts} %>
 <% end %>
