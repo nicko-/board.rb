@@ -48,9 +48,11 @@
   margin-bottom: 5px;
   background-color: #ffaba9;
   font-size: 11pt;
+  word-wrap: break-word;
 }
 
 .postContent {
+  word-wrap: break-word;
   font-family: monospace, courier;
   font-size: 11pt;
   padding-bottom: 6px;
@@ -63,6 +65,7 @@
 }
 
 .postHeader {
+  word-wrap: break-word;
   padding-bottom: 6px;
 }
 
