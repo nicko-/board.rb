@@ -5,7 +5,7 @@
   <div class="postHeader">
     <div class="postUserhash"><%= post[:author] %></div>
     <b><%= h user_alias %></b> - <%= Time.at(post[:date]).to_s %><br>
-    <% if post[:in_reply_to].nil? and post[:tags].split.length > 1 %><div class="postTags"><%= post[:tags] %><br></div><% end %>
+    <% if post[:in_reply_to].nil? and post[:tags].split.length > 0 %><div class="postTags"><%= post[:tags] %><br></div><% end %>
   </div>
   <div class="postContent"><%= h(post[:content]).gsub("\n", "<br>") %></div>
   <div class="postButtons"><a href="/new_post/?reply=<%= id %>">[reply]</a></div>
