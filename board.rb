@@ -138,7 +138,7 @@ post '/new_post/' do
   else # This is a reply to a thread, go to OP in thread
     op = find_op params[:reply].to_i
     $db[:posts].where(:id => op).update(:last_update => Time.now.to_i) # Bump OP
-    redirect to("/th/#{op}/")
+    redirect to("/th/#{op}/##{$db[:posts].where(:author => @user).to_a[-1][:id]}")
   end
 end
 
