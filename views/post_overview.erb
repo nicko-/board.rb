@@ -1,5 +1,5 @@
 <% user_alias = $db[:userconfig].where(:user => post[:author], :key => 'alias').first[:value] %>
-<a style="color: #000; text-decoration: none;" href="/th/<%= post[:id] %>/">
+<a style="color: #000; text-decoration: none;" href="/th/<%= if post[:in_reply_to].nil? then post[:id] else find_op post[:id] end %>/<%= "##{post[:id]}" if not post[:in_reply_to].nil? %>">
   <div class="postFront">
     <div class="postHeader">
       <div class="postUserhash"><%= post[:author] %></div>
