@@ -170,3 +170,7 @@ get '/ta/:tags/' do
   tags = params[:tags].gsub('+', ' ').split.map {|tag| "% #{tag} %"}
   erb :listing, :layout => :global, :locals => {:listing => $db[:posts].where(:in_reply_to => nil).where(Sequel.like(:tags, *tags)).reverse_order(:last_update)}
 end
+
+get '/u/:user/' do
+  erb :user, :layout => :global, :locals => {:user => params[:user]}
+end

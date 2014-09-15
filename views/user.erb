@@ -1,0 +1,3 @@
+<h2>Overview for <%= $db[:userconfig].where(:user => user, :key => 'alias').first[:value] %> (<%= user %>)</h2>
+<hr>
+<%= erb :listing, :locals => {:listing => $db[:posts].where(:author => user).reverse_order(:last_update)} %>
