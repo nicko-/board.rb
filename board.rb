@@ -167,7 +167,7 @@ get '/th/:id/' do
   erb :thread, :layout => :global
 end
 
-get '/ta/:tags/' do
+get '/t/:tags/' do
   tags = params[:tags].gsub('+', ' ').split.map {|tag| "% #{tag} %"}
   erb :listing, :layout => :global, :locals => {:listing => $db[:posts].where(:in_reply_to => nil).where(Sequel.like(:tags, *tags)).reverse_order(:last_update)}
 end
