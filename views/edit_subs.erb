@@ -8,7 +8,7 @@
         <input type="hidden" name="csrf_token" value="<%= csrf_token %>">
         <input type="hidden" name="action" value="remove">
         <input type="hidden" name="sub" value="<%= sub %>">
-        <td style="width:100%;"><%= sub %></td>
+        <td style="width:100%;"><a href="/t/<%= sub %>/"><%= sub %></a></td>
         <td><input type="submit" value="remove" style="width:64px;"></td>
       </form>
     </tr>
