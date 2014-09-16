@@ -4,7 +4,7 @@
 <div style="margin-left: <%= depth * 10 %>px;" class="post" id="<%= id %>">
   <div class="postHeader">
     <div class="postUserhash"><%= post[:author] %></div>
-    <b><%= h user_alias %></b> - <%= Time.at(post[:date]).to_s %><br>
+    <b><a href="/u/<%= post[:author ]%>/"><%= h user_alias %></a></b> - <%= Time.at(post[:date]).to_s %><br>
     <% if post[:in_reply_to].nil? and post[:tags].split.length > 0 %><div class="postTags"><%= post[:tags] %><br></div><% end %>
   </div>
   <div class="postContent"><%= h(post[:content]).gsub("\n", "<br>") %></div>
